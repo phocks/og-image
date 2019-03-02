@@ -51,6 +51,8 @@ function getCss(theme: string, fontSize: string) {
         text-align: center;
         align-items: center;
         justify-content: center;
+        margin-left: 50px;
+        margin-right: 50px;
     }
 
     code {
@@ -79,7 +81,7 @@ function getCss(theme: string, fontSize: string) {
 
     .plus {
         color: #BBB;
-        font-family: Times New Roman, Verdana;
+        font-family: Times New Roman, serif;
         font-size: 100px;
     }
 
@@ -95,17 +97,17 @@ function getCss(theme: string, fontSize: string) {
     }
     
     .heading {
-        font-family: 'Inter', sans-serif;
+        font-family: TimesNewRoman, Times New Roman, Times, Baskerville, Georgia, serif;
         font-size: ${sanitizeHtml(fontSize)};
         font-style: normal;
         color: ${foreground};
-        line-height: 1.8;
+        line-height: 1.7;
     }`;
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize, images } = parsedReq;
-    const [ firstImage, ...otherImages ] = images;
+    const { text, theme, md, fontSize, } = parsedReq;
+    // const [ firstImage, ...otherImages ] = images;
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -116,14 +118,6 @@ export function getHtml(parsedReq: ParsedRequest) {
     </style>
     <body>
         <div>
-            <div class="spacer">
-            <div class="img-wrapper">
-                <img class="logo" src="${sanitizeHtml(firstImage)}" />
-                ${otherImages.map(img =>
-                    `<div class="plus">+</div><img class="logo" src="${sanitizeHtml(img)}" />`
-                )}
-            </div>
-            <div class="spacer">
             <div class="heading">${emojify(
                 md ? marked(text) : sanitizeHtml(text)
             )}
